@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: headerFragment">
+<title id="pageTitle">EME systems</title>
+</head>
+
+<body>
+
+<!-- Left side content -->
+<div id="leftSide" th:include="fragments/layout :: leftSideFragment">
+</div>
+
+<!-- Right side -->
+<div id="rightSide">
+   <div class="topNav" th:include="fragments/layout :: topNavFragment">
+   </div>
+     <div class="line"></div>
+    <!-- Main content wrapper -->
+    <div class="wrapper">
+        <!-- Events calendar -->
+        <div class="widget">
+            <div class="title"><img src="images/icons/dark/monthCalendar.png" alt="" class="titleIcon" /><h6>Events</h6></div>
+            <div class="calendar"></div>
+        </div>
+    </div>
+  
+    <!-- Footer line -->
+     <div class="line"></div>
+   <div id="footer" th:include="fragments/layout :: footerFragment">
+   </div>
+</div>
+
+
+</body>
+</html>
