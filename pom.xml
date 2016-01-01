@@ -7,13 +7,11 @@
 		<version>1.3.1.RELEASE</version>
 		<relativePath />
 	</parent>
-	<artifactId>spring-boot-sample-web-secure-custom</artifactId>
-	<name>Spring Boot Web Secure Custom Sample</name>
-	<description>Spring Boot Web Secure Custom Sample</description>
-	<url>http://projects.spring.io/spring-boot/</url>
+	<artifactId>com.huihuan.eme</artifactId>
+	<name>EME System</name>
 	<organization>
-		<name>Pivotal Software, Inc.</name>
-		<url>http://www.spring.io</url>
+		<name>ECUST and HUIHUAN</name>
+		<url>http://www.ecust.edu.cn</url>
 	</organization>
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
