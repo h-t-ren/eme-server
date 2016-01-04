@@ -1,53 +1,51 @@
 package com.huihuan.eme;
 
-import java.util.Map;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import javax.annotation.PostConstruct;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-@EnableAutoConfiguration
-@ComponentScan
-@Controller
-public class EMEWebApplication extends WebMvcConfigurerAdapter {
-
-	private static final Log logger = LogFactory.getLog(EMEWebApplication.class);
-	@RequestMapping("/")
-	public String home(Map<String, Object> model) {
-		return "index";
+@SpringBootApplication
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@EnableTransactionManagement(proxyTargetClass = true)
+public class EMEWebApplication  extends SpringBootServletInitializer {
+	
+	public static void main(String[] args) throws Exception {
+		ConfigurableApplicationContext ctx = SpringApplication.run(
+				EMEWebApplication.class, args);
 	}
 
-	@RequestMapping("/foo")
-	public String foo() {
-		throw new RuntimeException("Expected exception in controller");
+	@PostConstruct
+	public void init() {
+		SecurityContextHolder.clearContext();
+
 	}
+
+
 
 	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("login");
+	protected SpringApplicationBuilder configure(
+			SpringApplicationBuilder application) {
+		return application.sources(EMEWebApplication.class);
 	}
+	
 
 	@Bean
 	public ApplicationSecurity applicationSecurity() {
 		return new ApplicationSecurity();
-	}
-
-	public static void main(String[] args) throws Exception {
-		new SpringApplicationBuilder(EMEWebApplication.class).run(args);
 	}
 
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
