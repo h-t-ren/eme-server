@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+                http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+	<global-method-security pre-post-annotations="enabled"
+		secured-annotations="enabled">
+	</global-method-security>
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="jdbcUserService">
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<beans:bean id="jdbcUserService"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl"
+		p:dataSource-ref="dataSource" p:enableGroups="true"
+		p:enableAuthorities="false" />
+
+
+	<beans:bean id="aclService"
+		class="org.springframework.security.acls.jdbc.JdbcAclService">
+		<beans:constructor-arg ref="dataSource" />
+		<beans:constructor-arg ref="lookupStrategy" />
+	</beans:bean>
+
+	<beans:bean id="lookupStrategy"
+		class="org.springframework.security.acls.jdbc.BasicLookupStrategy">
+		<beans:constructor-arg ref="dataSource" />
+		<beans:constructor-arg ref="aclCache" />
+		<beans:constructor-arg ref="aclAuthzStrategy" />
+		<beans:constructor-arg ref="aclAuditLogger" />
+	</beans:bean>
+
+	<beans:bean id="aclCache" class="com.huihuan.eme.NullAclCache" />
+
+	<beans:bean id="aclAuditLogger"
+		class="org.springframework.security.acls.domain.ConsoleAuditLogger" />
+
+	<beans:bean id="aclAuthzStrategy"
+		class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
+		<beans:constructor-arg>
+			<beans:array>
+				<beans:ref local="aclAdminAuthority" />
+				<beans:ref local="aclAdminAuthority" />
+				<beans:ref local="aclAdminAuthority" />
+			</beans:array>
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="aclAdminAuthority"
+		class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+		<beans:constructor-arg value="ROLE_ADMIN" />
+	</beans:bean>
+</beans:beans>

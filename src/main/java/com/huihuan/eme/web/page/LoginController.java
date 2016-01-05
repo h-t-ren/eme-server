@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.huihuan.eme;
+package com.huihuan.eme.web.page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

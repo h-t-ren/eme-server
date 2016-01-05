@@ -1,10 +1,12 @@
 /**
  * 
  */
-package com.huihuan.eme;
+package com.huihuan.eme.web.rest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.huihuan.eme.domain.page.EMEUser;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -16,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestTest {
 	
 	@RequestMapping("/restTest")
-	public WSUser restTest()
+	public EMEUser restTest()
 	{
-		WSUser user = new WSUser();
+		EMEUser user = new EMEUser();
 		user.setUsername("user");
 		user.setPassword("password");
 		return user;
