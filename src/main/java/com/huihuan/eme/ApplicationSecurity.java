@@ -35,7 +35,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @ImportResource(value={"classpath*:META-INF/datasource.xml","classpath*:META-INF/secu.xml"})
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	
-	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

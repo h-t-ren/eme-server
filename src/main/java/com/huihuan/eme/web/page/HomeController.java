@@ -29,4 +29,9 @@ public class HomeController {
 		logger.debug("to home");
 		return "index";
 	}
+	
+	@RequestMapping("/forms.html")
+	public String forms(Map<String, Object> model) {
+		return "forms";
+	}
 }
