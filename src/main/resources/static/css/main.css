@@ -386,6 +386,7 @@ ul.sub li ul li { padding-left: 10px; }
 /* Common styles
 ================================================== */
 
+.leftbar{display: inline-block;}
 .fixed { box-shadow: inset 0 0 1px #748a9b; -moz-box-shadow: inset 0 0 1px #748a9b; -webkit-box-shadow: inset 0 0 1px #748a9b; }
 
 .middleNav, .widget, .sItem, .statsDetailed, .statsContent, .nav li a strong, .controlB ul li, .toggle, .smalldd ul li a strong
